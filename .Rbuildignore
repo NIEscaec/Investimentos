@@ -1,2 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+<<<<<<< HEAD
+=======
+^LICENSE\.md$
+>>>>>>> 0147e82ab9d281451b940cfc09452d24b5a1f15d
