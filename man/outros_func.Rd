@@ -4,11 +4,7 @@
 \alias{outros_func}
 \title{Outros}
 \usage{
-<<<<<<< HEAD
 outros_func(df_por_setor, plan3_reference, ano_referente)
-=======
-outros_func(df_por_setor, plan3_reference)
->>>>>>> 0147e82ab9d281451b940cfc09452d24b5a1f15d
 }
 \arguments{
 \item{df_por_setor}{Data frame que contém os dados do Setor de atividade econômica}
