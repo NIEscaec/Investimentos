@@ -4,7 +4,7 @@
 \alias{soma_linhas}
 \title{Soma de linhas de cada país}
 \usage{
-soma_linhas(nlinha)
+soma_linhas(nlinha, tam)
 }
 \arguments{
 \item{nlinha}{o nome de um dataframe que contenha dados dos países de 2010 a 2020}

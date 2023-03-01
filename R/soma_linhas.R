@@ -6,9 +6,9 @@
 #' @export
 
 
-soma_linhas <- function(nlinha){
+soma_linhas <- function(nlinha, tam){
   nlinha[is.na(nlinha)] <- 0
-  soma <- apply(nlinha[,2:12], 2, FUN=sum)
+  soma <- apply(nlinha[,2:tam], 2, FUN=sum)
   def <- data_frame(anos, soma)
   def <- def %>%
     pivot_wider(names_from = anos, values_from = soma)
