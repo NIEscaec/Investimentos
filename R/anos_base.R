@@ -10,5 +10,3 @@
    anos <- c(ano_inicio:ano_final)
    anos <- as.character(anos)
  }
-
-
