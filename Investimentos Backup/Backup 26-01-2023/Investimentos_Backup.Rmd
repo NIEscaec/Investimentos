@@ -1,5 +1,5 @@
 ---
-title: "Investimentos Brasil -  "
+title: "Investimentos Brasil - "
 author:
 - "Secretaria de Comércio Exterior e Assuntos Econômicos(SCAEC)"
 - "Núcleo de Inteligência Econômica(NIE)"
@@ -46,8 +46,6 @@ graphics: yes
 ```{r, echo=FALSE, message=FALSE, warning = FALSE}
 
 # Ultima atualização feita 03/10/2022
-
-
 library(tidyverse)
 library(tinytex)
 library(rbcb)
@@ -70,19 +68,18 @@ library(shiny)
 #Se não tiver o pacote baixado baixe aqui 
 #devtools::install_github("NIEscaec/Investimentos")
 library(Investimentos)
-
 ``` 
 
   
   
 
 ```{r, echo=FALSE, message=FALSE, warning = FALSE}
- pais_titulo <- "teste"
+ pais_titulo <- " "
 ```
 
 ---
 title: "Investimentos Brasil - `r pais_titulo`"
---- 
+---
 
 ```{r, echo=FALSE, message=FALSE, warning = FALSE}
   # Coloque aqui o pais ou paises que deseja gerar relatorio
@@ -91,7 +88,7 @@ title: "Investimentos Brasil - `r pais_titulo`"
   #
   # 1- Se for mais de um pais coleque em primeiro o pais que tenha dados de IDP e IDB
 
-  pais <- c("Alemanha")
+ pais <- c("Alemanha", "Reino Unido", "Angola")
 
 
 ```
@@ -141,17 +138,17 @@ Amortizacoes_InterciaPassivo <- ler_excel("data-raw/InterciaPassivop.xls", "Amor
 
 # Lista com os anos
 anos <- c("2010", "2011", "2012", "2013", "2014", "2015",
-          "2016", "2017", "2018", "2019", "2020")
+          "2016", "2017", "2018", "2019", "2020", "2021")
 
 
 
 # Carrega as linhas 1 a 6 da tabela 1
-Invest_Imediato_IDP <- ler_linha(Invest_Imediato_IDP,12)
-Control_Final_IDP <- ler_linha(Control_Final_IDP,12)
-Oper_Intercomp_IDP <- ler_linha(Oper_Intercomp_IDP,12)
-fluxo_Invest_InvEstrp <- ler_linha(fluxo_Invest_InvEstrp,12)
-Igressos_InterciaPassivo <- ler_linha(Igressos_InterciaPassivo,12)
-Amortizacoes_InterciaPassivo <- ler_linha(Amortizacoes_InterciaPassivo,12)
+Invest_Imediato_IDP <- ler_linha(Invest_Imediato_IDP,13)
+Control_Final_IDP <- ler_linha(Control_Final_IDP,13)
+Oper_Intercomp_IDP <- ler_linha(Oper_Intercomp_IDP,13)
+fluxo_Invest_InvEstrp <- ler_linha(fluxo_Invest_InvEstrp,13)
+Igressos_InterciaPassivo <- ler_linha(Igressos_InterciaPassivo,13)
+Amortizacoes_InterciaPassivo <- ler_linha(Amortizacoes_InterciaPassivo,13)
 
 
 
@@ -235,16 +232,16 @@ imoveis <- select(imoveis,Discriminação, anos)
 
 
 # Carrega as linhas 1 a 9 da tabela 2
-Invest_Imediato_IDE <- ler_linha(Invest_Imediato_IDE,12)
-Oper_Intercomp_IDE <- ler_linha(Oper_Intercomp_IDE,12)
+Invest_Imediato_IDE <- ler_linha(Invest_Imediato_IDE,13)
+Oper_Intercomp_IDE <- ler_linha(Oper_Intercomp_IDE,13)
 
-Acoes_IDE <- ler_linha(Acoes_IDE,12)
-RF_Curto_Prazo_IDE <- ler_linha(RF_Curto_Prazo_IDE,12)
-RF_Longo_Prazo_IDE <- ler_linha(RF_Longo_Prazo_IDE,12)
+Acoes_IDE <- ler_linha(Acoes_IDE,13)
+RF_Curto_Prazo_IDE <- ler_linha(RF_Curto_Prazo_IDE,13)
+RF_Longo_Prazo_IDE <- ler_linha(RF_Longo_Prazo_IDE,13)
 
-moedas <- ler_linha(moedas,12)
-imoveis <- ler_linha(imoveis,12)
-Fluxo_Invest_Imediatop_IDE <- ler_linha(Fluxo_Invest_Imediatop_IDE,12)
+moedas <- ler_linha(moedas,13)
+imoveis <- ler_linha(imoveis,13)
+Fluxo_Invest_Imediatop_IDE <- ler_linha(Fluxo_Invest_Imediatop_IDE,13)
 
 
 
@@ -300,8 +297,8 @@ tabela1_plan1 <- criar_tabela(tabela1_plan1, setores_tab1)
 
 
 # Divide a tabla em 2
-tabela1_plan1.1 <- tabela1_plan1 %>% select(names, "2011", "2012", "2013", "2014", "2015")
-tabela1_plan1.2 <- tabela1_plan1 %>% select(names, "2016", "2017", "2018", "2019", "2020")
+tabela1_plan1.1 <- tabela1_plan1 %>% select(names, "2012", "2013", "2014", "2015", "2016")
+tabela1_plan1.2 <- tabela1_plan1 %>% select(names, "2017", "2018", "2019", "2020", "2021")
 
 tabela1_plan1.1 <- rename(tabela1_plan1.1, "Dado" = "names")
 tabela1_plan1.2 <- rename(tabela1_plan1.2, "Dado" = "names")
@@ -345,6 +342,23 @@ tabela1_plan1.2 <- tabela1_plan1.2[c(1, 3, 2, 4, 5:nrow(tabela1_plan1.2)), ]
     if(pais %in% lista_paises_IDP_CF){
       #====================================================================== COD Tabela 2==========================================================================
       #                                                                 Coluna Control. Final
+      #=============================================================================================================================================================
+    
+                                                                   # ANO 2021
+      #-----------------------------------------------------------------------------------------------------------------------------------------------------------
+      ANO_2021_CF <- read_xlsx("data-raw/TabelasCompletasPosicaoIDP.xlsx",sheet = "14", range = "A4:AJ19")
+      #-----------------------------------------------------------------------------------------------------------------------------------------------------------
+      linhas <- c(1, 2, 3, 7, 10, 11, 13, 15)
+      ANO_2021_CF <- ANO_2021_CF[-linhas, ]
+      #-----------------------------------------------------------------------------------------------------------------------------------------------------------
+      ANO_2021_CF <- ANO_2021_CF %>% mutate(dplyr::across(.cols=2:36, .fns=as.numeric))
+      #-----------------------------------------------------------------------------------------------------------------------------------------------------------
+      ANO_2021_CF <- ANO_2021_CF %>%
+        pivot_longer(
+          cols = `Estados Unidos`:Israel,
+          names_to = "pais",
+          values_to = "valor")
+    #====================================================================================================================================================================
       #=============================================================================================================================================================
     
                                                                    # ANO 2020
@@ -528,6 +542,9 @@ tabela1_plan1.2 <- tabela1_plan1.2[c(1, 3, 2, 4, 5:nrow(tabela1_plan1.2)), ]
     
       ANO_2020_CF$Ano <- "2020"
       ANO_2020_CF$Ano <- as.numeric(ANO_2020_CF$Ano)
+      
+      ANO_2021_CF$Ano <- "2021"
+      ANO_2021_CF$Ano <- as.numeric(ANO_2021_CF$Ano)
       #-----------------------------------------------------------------------------------------------------------------------------------------------------------
       # renomeia a coluna setor
       ANO_2010_CF <- ANO_2010_CF %>%
@@ -562,11 +579,13 @@ tabela1_plan1.2 <- tabela1_plan1.2[c(1, 3, 2, 4, 5:nrow(tabela1_plan1.2)), ]
     
       ANO_2020_CF <- ANO_2020_CF %>%
         rename("Setores" = `ANO: 2020`)
+      
+      ANO_2021_CF <- ANO_2021_CF %>%
+        rename("Setores" = `ANO: 2021`)
       #-----------------------------------------------------------------------------------------------------------------------------------------------------------
       # junat em data frame só
-      IDP_Por_Setor_Control_Final <- bind_rows(ANO_2020_CF, ANO_2019_CF, ANO_2018_CF, ANO_2017_CF, ANO_2016_CF, ANO_2015_CF, ANO_2014_CF, 
+      IDP_Por_Setor_Control_Final <- bind_rows(ANO_2021_CF, ANO_2020_CF, ANO_2019_CF, ANO_2018_CF, ANO_2017_CF, ANO_2016_CF, ANO_2015_CF, ANO_2014_CF, 
                                                ANO_2013_CF, ANO_2012_CF, ANO_2011_CF, ANO_2010_CF)
-
       #-----------------------------------------------------------------------------------------------------------------------------------------------------------
       # variavel para filtra o pais
       pais_filtro <- pais
@@ -633,6 +652,9 @@ tabela1_plan1.2 <- tabela1_plan1.2[c(1, 3, 2, 4, 5:nrow(tabela1_plan1.2)), ]
       
       ANO_2020_INV <- read_xlsx("data-raw/TabelasCompletasPosicaoIDP.xlsx",sheet = "13", range = "A25:AJ40")
       ANO_2020_INV <- turn_numeric(ANO_2020_INV, 36)
+      
+      ANO_2021_INV <- read_xlsx("data-raw/TabelasCompletasPosicaoIDP.xlsx",sheet = "13", range = "A4:AJ19")
+      ANO_2021_INV <- turn_numeric(ANO_2021_INV, 36)
       #############################################################################################################################################################
       linhas <- c(1, 2, 3, 7, 10, 11, 13, 15)
       ANO_2010_INV <- ANO_2010_INV[-linhas, ]
@@ -689,10 +711,15 @@ tabela1_plan1.2 <- tabela1_plan1.2[c(1, 3, 2, 4, 5:nrow(tabela1_plan1.2)), ]
       ANO_2020_INV <- pivot_longer_ano(ANO_2020_INV,"Países Baixos", "Finlândia")
       ANO_2020_INV <- IDP_func(ANO_2020_INV, "2020", "ANO: 2020")
       ##############################################################################################################################################################
+            
+      ANO_2021_INV <- ANO_2021_INV[-linhas, ]
+      ANO_2021_INV <- pivot_longer_ano(ANO_2021_INV,"Estados Unidos", "Áustria")
+      ANO_2021_INV <- IDP_func(ANO_2021_INV, "2021", "ANO: 2021")
+      ##############################################################################################################################################################
       
     
       IDP_Por_Setor_Inv_Imed <- bind_rows(ANO_2010_INV, ANO_2011_INV, ANO_2012_INV, ANO_2013_INV, ANO_2014_INV, ANO_2015_INV, ANO_2016_INV,
-                                          ANO_2017_INV, ANO_2018_INV, ANO_2019_INV, ANO_2020_INV)
+                                          ANO_2017_INV, ANO_2018_INV, ANO_2019_INV, ANO_2020_INV, ANO_2021_INV)
       
       IDP_Por_Setor_Inv_Imed <- IDP_Por_Setor_Inv_Imed %>%
         rename(Pais = pais)
@@ -712,6 +739,13 @@ tabela1_plan1.2 <- tabela1_plan1.2[c(1, 3, 2, 4, 5:nrow(tabela1_plan1.2)), ]
       #----------------------------------------------------------
       IDP_Por_Setor_Inv_Imed <- IDP_Por_Setor_Inv_Imed %>%
           select(Setores, valor, Ano)
+      #-----------------------------------------------------------------------------------------------------------------------------------------------------------
+      IDP_Por_Setor_Inv_Imed <- IDP_Por_Setor_Inv_Imed[c(1, 4, 3, 2, 6, 5, 7:nrow(IDP_Por_Setor_Inv_Imed)), ]
+      #-----------------------------------------------------------------------------------------------------------------------------------------------------------
+      # excluia a linha desnecessaria
+      linha <- c(7)
+      IDP_Por_Setor_Inv_Imed <- IDP_Por_Setor_Inv_Imed[-linha, ]
+      #-----------------------------------------------------------------------------------------------------------------------------------------------------------
   
       IDP_Por_Setor_Inv_Imed[1] <- Investimentos::setores_idp_nomes
       #-----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -821,8 +855,8 @@ tabela1_plan1.2 <- tabela1_plan1.2[c(1, 3, 2, 4, 5:nrow(tabela1_plan1.2)), ]
     
      if((pais[] %in% lista_paises_IDP_II) && (pais[] %in% lista_paises_IDP_CF)){
       for (i in pais) {
-        IDP_Por_Setor_Inv_Imed <- read_xlsx("data-raw/TabelasCompletasPosicaoIDP.xlsx",sheet = "13", range = "A5:AJ20")
-        IDP_Por_Setor_Control_Final <- read_xlsx("data-raw/TabelasCompletasPosicaoIDP.xlsx",sheet = "14", range = "A5:AJ20")
+        IDP_Por_Setor_Inv_Imed <- read_xlsx("data-raw/TabelasCompletasPosicaoIDP.xlsx",sheet = "13", range = "A4:AJ19")
+        IDP_Por_Setor_Control_Final <- read_xlsx("data-raw/TabelasCompletasPosicaoIDP.xlsx",sheet = "14", range = "A4:AJ19")
         
         # Coluna Invest. Imediato
         IDP_Por_Setor_Inv_Imed <- setores(IDP_Por_Setor_Inv_Imed)
@@ -935,7 +969,7 @@ kableExtra::kable(Qtd_Invest, digits = 2, format = "markdown", align = 'lccc')
 
 
 \newpage
-#  Investimentos do Brasil no(a) `r pais_titulo`
+#  Investimentos do Brasil no(a) `r pais`
 ```{r, echo=FALSE, message=FALSE, warning = FALSE}
 # --------------------------------------------------- Tabela 3 ---------------------------------------------------
 # Tabela IBD
@@ -949,8 +983,8 @@ tabela_IBD <- criar_tabela(tabela_IBD, setor_tab2)
 
 # ------------------------------------------------------------------------------------------------------
 # Divide a tabla em 2
-tabela_IBD.1 <- tabela_IBD %>% select(names, "2011", "2012", "2013", "2014", "2015")
-tabela_IBD.2 <- tabela_IBD %>% select(names, "2016", "2017", "2018", "2019", "2020")
+tabela_IBD.1 <- tabela_IBD %>% select(names, "2012", "2013", "2014", "2015", "2016")
+tabela_IBD.2 <- tabela_IBD %>% select(names,  "2017", "2018", "2019", "2020", "2021")
 
 tabela_IBD.1 <- rename(tabela_IBD.1, "Dado" = "names")
 tabela_IBD.2 <- rename(tabela_IBD.2, "Dado" = "names")
@@ -1010,7 +1044,7 @@ tabela_IBD.2 <- rename(tabela_IBD.2, "Dado" = "names")
 # -----------------------------------------------------------------------------------------------------------
   
   tabela_investimento_carteira.1 <- tabela_investimento_carteira %>% select(names, "2011", "2012", "2013", "2014", "2015")
-  tabela_investimento_carteira.2 <- tabela_investimento_carteira %>% select(names, "2016", "2017", "2018", "2019", "2020")
+  tabela_investimento_carteira.2 <- tabela_investimento_carteira %>% select(names, "2016", "2017", "2018", "2019", "2020", "2021")
 
 ```
 
@@ -1056,7 +1090,7 @@ setor_tab2 <- c("Moedas/Depósitos", "Imóveis")
 tabela_moedas_imoveis <- criar_tabela(tabela_moedas_imoveis, setor_tab2)
 
 tabela_moedas_imoveis.1 <- tabela_moedas_imoveis %>% select(names, "2011", "2012", "2013", "2014", "2015")
-tabela_moedas_imoveis.2 <- tabela_moedas_imoveis %>% select(names, "2016", "2017", "2018", "2019", "2020")
+tabela_moedas_imoveis.2 <- tabela_moedas_imoveis %>% select(names, "2016", "2017", "2018", "2019", "2020", "2021")
 
 ```
 
@@ -1090,15 +1124,15 @@ tabela_moedas_imoveis.2 <- tabela_moedas_imoveis %>% select(names, "2016", "2017
 ```{r, echo=FALSE,fig.width=10, fig.height=5.8, message=FALSE,warning = FALSE}
 
   IBD_Por_Setor <- read_xlsx("data-raw/TabelasCompletasPosicaoIDE.xlsx",sheet = "18", range = "A5:BZ24")
-
+ 
   if(pais[] %in% lista_paises_IBD_por_setor){
-      
+    pais <- toupper(pais)
     # Criar a tabela
      IBD_Por_Setor <- setores_idb(IBD_Por_Setor)
      IBD_Por_Setor <- setores_final(IBD_Por_Setor, TESTE)
      
     # Calculo da linha outros
-     IBD_Por_Setor_Outros <- outros_func(IBD_Por_Setor, Invest_Imediato_IDE, "2020")
+     IBD_Por_Setor_Outros <- outros_func(IBD_Por_Setor, Invest_Imediato_IDE, "2021")
      IBD_Por_Setor[nrow(IBD_Por_Setor) + 1,] <- IBD_Por_Setor_Outros
      
    }else{
@@ -1109,14 +1143,18 @@ tabela_moedas_imoveis.2 <- tabela_moedas_imoveis %>% select(names, "2016", "2017
   
   IBD_Qtd_Invest <- ler_excel("data-raw/TabelasCompletasPosicaoIDE.xlsx", "4", 4)
   
-  IBD_Qtd_Invest <- rename(IBD_Qtd_Invest, "2020" = "20202/")
-  anos15e20 <- c("2015","2020")
+  pais <- tolower(pais)
+  pais <- str_to_title(pais) 
+  
+  
+  IBD_Qtd_Invest <- rename(IBD_Qtd_Invest, "2021" = "20212/")
+  anos15e20 <- c("2015","2021")
   IBD_Qtd_Invest <- IDP_Qtd_Invest(IBD_Qtd_Invest,anos15e20)
   IBD_Qtd_Invest <- soma_Qtd_Invest(IBD_Qtd_Invest,3,anos15e20)
   IBD_Qtd_Invest$Setor <- c("IBD - Quantidade de Investidores")
   
   
-  IBD_Qtd_Invest <-  select(IBD_Qtd_Invest, Setor, "2015", "2020")
+  IBD_Qtd_Invest <-  select(IBD_Qtd_Invest, Setor, "2015", "2021")
 ```
 
 
@@ -1164,8 +1202,8 @@ Esta seção traz análise comparativa com parceiros próximos.
 
 ```{r, echo=FALSE,fig.width=10, fig.height=5.8, message=FALSE,warning = FALSE}
 ## fazendo data frame IDP
-
-    # Carrega a página 6 da Planilha IDP
+   pais <- c("Alemanha")
+    # Carrega a página 5 da Planilha IDP
     Invest_Imediato_IDP <- ler_excel("data-raw/TabelasCompletasPosicaoIDP.xlsx", "5", 4)
 
     # Carrega a página 3 da Planilha IDE
@@ -1175,8 +1213,8 @@ Esta seção traz análise comparativa com parceiros próximos.
     # Criando rank
     idp <- Invest_Imediato_IDP %>%
       select(Discriminação,"2010", ...3, "2011", ...5, "2012", ...7, "2013", ...9, "2014", ...11, "2015", ...13, "2016", ...15, "2017", ...17,
-             "2018", ...19, "2019", ...21, "2020", ...23)  %>%
-      slice(-(1:5))%>%
+             "2018", ...19, "2019", ...21, "2020", ...23, "2021", ...25)  %>%
+      slice(-(1:4))%>%
       mutate(tipo = "IDP") %>%
       mutate(rankIDP = dplyr::row_number())
     
@@ -1215,8 +1253,8 @@ Esta seção traz análise comparativa com parceiros próximos.
     # Criando rank
     ide <- Invest_Imediato_IDE %>%
       select(Discriminação,  "2010", ...9, "2011", ...11, "2012", ...13, "2013", ...15, "2014", ...17, "2015", ...19, "2016", ...21, "2017", ...23,
-             "2018", ...25, "2019", ...27, "2020", ...29)  %>%
-      slice(-(1:5))%>%
+             "2018", ...25, "2019", ...27, "2020", ...29, "2021", ...31)  %>%
+      slice(-(1:4))%>%
       mutate(tipo = "IDE") %>%
       mutate(rankIDE = dplyr::row_number())
     
@@ -1254,12 +1292,12 @@ Esta seção traz análise comparativa com parceiros próximos.
     
     
     novo_rank_paises_IDP <- rank_paises_IDP%>%
-      select(Discriminação, rankIDP, tipo,"2010", "2011","2012","2013","2014","2015","2016","2017","2018","2019", "2020")%>%
-      pivot_longer(cols = c("2010", "2011","2012","2013","2014","2015","2016","2017","2018","2019", "2020"), names_to = "ano", values_to = "value")%>%
+      select(Discriminação, rankIDP, tipo,"2010", "2011","2012","2013","2014","2015","2016","2017","2018","2019", "2020", "2021")%>%
+      pivot_longer(cols = c("2010", "2011","2012","2013","2014","2015","2016","2017","2018","2019", "2020", "2021"), names_to = "ano", values_to = "value")%>%
       rename(rank = rankIDP)
     
     df_percent_idp <- rank_paises_IDP%>%
-      select(Discriminação,rankIDP, ...3, ...5, ...7, ...9, ...11, ...13, ...15, ...17, ...19, ...21, ...23)%>%
+      select(Discriminação,rankIDP, ...3, ...5, ...7, ...9, ...11, ...13, ...15, ...17, ...19, ...21, ...23, ...25)%>%
       rename("2010" = ...3)%>%
       rename("2011" = ...5)%>%
       rename("2012" = ...7)%>%
@@ -1271,7 +1309,8 @@ Esta seção traz análise comparativa com parceiros próximos.
       rename("2018" = ...19)%>%
       rename("2019" = ...21)%>%
       rename("2020" = ...23)%>%
-      pivot_longer(cols = c("2010", "2011","2012","2013","2014","2015","2016","2017","2018","2019", "2020"), names_to = "ano", values_to = "percent")%>%
+      rename("2021" = ...25)%>%
+      pivot_longer(cols = c("2010", "2011","2012","2013","2014","2015","2016","2017","2018","2019", "2020", "2021"), names_to = "ano", values_to = "percent")%>%
       rename(rank = rankIDP)
     
     novo_rank_paises_IDP <- left_join(novo_rank_paises_IDP, df_percent_idp, by = c('Discriminação', 'ano', 'rank'))
@@ -1281,12 +1320,12 @@ Esta seção traz análise comparativa com parceiros próximos.
     #-----------------#------------------
     
     novo_rank_paises_IDE <- rank_paises_IDE%>%
-      select(Discriminação, rankIDE, tipo,"2010", "2011","2012","2013","2014","2015","2016","2017","2018","2019", "2020")%>%
-      pivot_longer(cols = c("2010", "2011","2012","2013","2014","2015","2016","2017","2018","2019", "2020"), names_to = "ano", values_to = "value")%>%
+      select(Discriminação, rankIDE, tipo,"2010", "2011","2012","2013","2014","2015","2016","2017","2018","2019", "2020", "2021")%>%
+      pivot_longer(cols = c("2010", "2011","2012","2013","2014","2015","2016","2017","2018","2019", "2020", "2021"), names_to = "ano", values_to = "value")%>%
       rename(rank = rankIDE)
     
     df_percent_ide <- rank_paises_IDE%>%
-      select(Discriminação,rankIDE, ...9, ...11, ...13, ...15, ...17, ...19, ...21, ...23, ...25, ...27, ...29)%>%
+      select(Discriminação,rankIDE, ...9, ...11, ...13, ...15, ...17, ...19, ...21, ...23, ...25, ...27, ...29, ...31)%>%
       rename("2010" = ...9)%>%
       rename("2011" = ...11)%>%
       rename("2012" = ...13)%>%
@@ -1298,7 +1337,8 @@ Esta seção traz análise comparativa com parceiros próximos.
       rename("2018" = ...25)%>%
       rename("2019" = ...27)%>%
       rename("2020" = ...29)%>%
-      pivot_longer(cols = c("2010", "2011","2012","2013","2014","2015","2016","2017","2018","2019", "2020"), names_to = "ano", values_to = "percent")%>%
+      rename("2021" = ...31)%>%
+      pivot_longer(cols = c("2010", "2011","2012","2013","2014","2015","2016","2017","2018","2019", "2020", "2021"), names_to = "ano", values_to = "percent")%>%
       rename(rank = rankIDE)
     
     novo_rank_paises_IDE <- left_join(novo_rank_paises_IDE, df_percent_ide, by = c('Discriminação', 'ano', 'rank'))
@@ -1314,6 +1354,7 @@ Esta seção traz análise comparativa com parceiros próximos.
     df_geral <- bind_rows(novo_rank_paises_IDP, novo_rank_paises_IDE)
     df_geral$value <- as.numeric(df_geral$value)
     df_geral$ano <- as.numeric(df_geral$ano)
+    df_geral[is.na(df_geral)] <- 0
   }
 ```
 
@@ -1365,7 +1406,7 @@ Esta seção traz análise comparativa com parceiros próximos.
 
 
 \newpage
-## Evolução do investimento nos últimos 3 anos disponíveis
+## Evolução do investimento nos últimos 5 anos disponíveis
 ```{r, echo=FALSE,fig.width=10, fig.height=5.8, message=FALSE,warning = FALSE}
 # Parceiros próximos
   if((length(pais) == 1) && (pais %in% Invest_Imediato_IDP$Discriminação) && (pais %in% Invest_Imediato_IDE$Discriminação)){

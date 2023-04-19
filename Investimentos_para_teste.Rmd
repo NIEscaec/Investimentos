@@ -712,7 +712,7 @@ tabela1_plan1.2 <- tabela1_plan1.2[c(1, 3, 2, 4, 5:nrow(tabela1_plan1.2)), ]
       #----------------------------------------------------------
       IDP_Por_Setor_Inv_Imed <- IDP_Por_Setor_Inv_Imed %>%
           select(Setores, valor, Ano)
-  
+
       IDP_Por_Setor_Inv_Imed[1] <- Investimentos::setores_idp_nomes
       #-----------------------------------------------------------------------------------------------------------------------------------------------------------
       # transforma NA em 0
